@@ -12,6 +12,7 @@
 			*d_togi, *l_togi, *r_togi;
 	
 	id nekoState;
+        id currentDirection;
 	unsigned char tickCount, stateCount;
 	float moveDx, moveDy;
 	id myTimer;

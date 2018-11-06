@@ -1,4 +1,5 @@
 #import "MyPanel.h"
+#include <stdlib.h>
 
 @implementation MyPanel
 - (void)setStateTo:(id)theState
@@ -168,26 +169,36 @@
 		if (moveDx > 0) {
 			if (SinTheta > 0.9239) {
 				NewState = u_move;
+                                currentDirection = u_move;
 			} else if (SinTheta > 0.3827) {
 				NewState = ur_move;
+                                currentDirection = u_move;
 			} else if (SinTheta > -0.3827) {
 				NewState = r_move;
+                                currentDirection = r_move;
 			} else if (SinTheta > -0.9239) {
 				NewState = dr_move;
+                                currentDirection = r_move;
 			} else {
 				NewState = d_move;
+                                currentDirection = d_move;
 			}
 		} else {
 			if (SinTheta > 0.9239) {
 				NewState = u_move;
+                                currentDirection = u_move;
 			} else if (SinTheta > 0.3827) {
 				NewState = ul_move;
+                                currentDirection = l_move;
 			} else if (SinTheta > -0.3827) {
 				NewState = l_move;
+                                currentDirection = l_move;
 			} else if (SinTheta > -0.9239) {
 				NewState = dl_move;
+                                currentDirection = d_move;
 			} else {
 				NewState = d_move;
+                                currentDirection = d_move;
 			}
 		}
     }
@@ -220,17 +231,19 @@
 		if (stateCount < 4) {
 			goto breakout;
 		}
-		/*if (moveDx < 0 && x <= 0) {
-		[self setStateTo:l_togi];
-		} else if (moveDx > 0 && x >= WindowWidth - 32) {
+                if (arc4random_uniform(2) < 1) {
+					[self setStateTo:jare];
+                } else if (currentDirection == l_move) {
+                    [self setStateTo:l_togi];
+		} else if (currentDirection == r_move) {
 			[self setStateTo:r_togi];
-		} else if (moveDy < 0 && y <= 0) {
+		} else if (currentDirection == u_move) {
 			[self setStateTo:u_togi];
-		} else if (moveDy > 0 && y >= WindowHeight - 32) {
+		} else if (currentDirection == d_move) {
 			[self setStateTo:d_togi];
-		} else {*/
-		[self setStateTo:jare];
-		//}
+		} else {
+                  [self setStateTo:jare];
+		}
 	} else if(nekoState == jare) {
 		if (isNekoMoveStart) {
 			[self setStateTo:awake];
@@ -280,7 +293,7 @@
 		if (stateCount < 10) {
 			goto breakout;
 		}
-		[self setStateTo:kaki];
+		[self setStateTo:akubi];
 	} else {
 		/* Internal Error */
 		[self setStateTo:stop];
